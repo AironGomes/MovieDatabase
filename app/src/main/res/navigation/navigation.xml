@@ -4,20 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/homeFragment">
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.airongomes.moviedatabase.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="Movies In Theaters"
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/openDetail"
+            android:id="@+id/openMovieDetails"
             app:destination="@id/detailFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.airongomes.moviedatabase.ui.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        android:label="Movie Details"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

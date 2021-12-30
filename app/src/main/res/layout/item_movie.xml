@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     app:cardElevation="4dp"
     app:cardCornerRadius="4dp"
-    android:layout_margin="8dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,11 +16,12 @@
 
         <ImageView
             android:id="@+id/ivPoster"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="150dp"
-            android:src="@color/black"
+            android:padding="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/black"/>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -30,7 +32,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivPoster"
             app:layout_constraintTop_toTopOf="@id/ivPoster"
-            tools:text="Título do Filme" />
+            tools:text="Movie Title" />
 
         <TextView
             android:id="@+id/tvGenre"
@@ -42,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivPoster"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            tools:text="Gênero: Ação" />
+            tools:text="Genre: Action" />
 
         <TextView
             android:id="@+id/tvRelease"
@@ -51,10 +53,10 @@
             android:textSize="14sp"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
+            android:text="@string/release_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivPoster"
-            app:layout_constraintTop_toBottomOf="@id/tvGenre"
-            tools:text="Data de Lançamento" />
+            app:layout_constraintTop_toBottomOf="@id/tvGenre" />
 
         <TextView
             android:id="@+id/tvDate"

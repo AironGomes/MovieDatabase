@@ -1,6 +1,7 @@
 package com.airongomes.moviedatabase.repository
 
 import com.airongomes.moviedatabase.domain.model.Genres
+import com.airongomes.moviedatabase.domain.model.MovieDetail
 import com.airongomes.moviedatabase.domain.model.MovieList
 import com.airongomes.moviedatabase.domain.remote.BaseApiResponse
 import com.airongomes.moviedatabase.domain.remote.NetworkResult
@@ -16,16 +17,16 @@ class Repository(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseApiResponse() {
 
-//    suspend fun getMovie(movieId: Int): Flow<NetworkResult<MovieDetail>> {
-//        return flow<NetworkResult<MovieDetail>> {
-//            emit(
-//                safeApiCall(
-//                    apiCall = { remoteDataSource.getMovie(movieId) },
-//                    resultMapped = { it.toModel() }
-//                )
-//            )
-//        }.flowOn(dispatcher)
-//    }
+    suspend fun getMovie(movieId: Int): Flow<NetworkResult<MovieDetail>> {
+        return flow<NetworkResult<MovieDetail>> {
+            emit(
+                safeApiCall(
+                    apiCall = { remoteDataSource.getMovie(movieId) },
+                    resultMapped = { it.toModel() }
+                )
+            )
+        }.flowOn(dispatcher)
+    }
 
     suspend fun getMoviesInTheaters(): Flow<NetworkResult<MovieList>> {
         return flow<NetworkResult<MovieList>> {

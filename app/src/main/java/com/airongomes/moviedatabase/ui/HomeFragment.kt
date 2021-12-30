@@ -1,12 +1,12 @@
 package com.airongomes.moviedatabase.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.airongomes.moviedatabase.R
 import com.airongomes.moviedatabase.adapter.MovieListAdapter
 import com.airongomes.moviedatabase.domain.remote.NetworkResult
@@ -31,7 +31,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
-        movieList.adapter = adapter
+        movieList.adapter = adapter.apply {
+            onClick = { openMovieDetail(it) }
+        }//TODO: Implement ScrollListener to adapter
         handleObserver()
         fetchData()
     }
@@ -45,17 +47,23 @@ class HomeFragment : Fragment() {
             when (response) {
                 is NetworkResult.Success -> {
                     progressBar.visibility = View.GONE
-                    Log.i("TAG", "fetchData: ${response.data.toString()}")
+                    response.data?.results?.let {
+                        adapter.items = it
+                    }
                 }
                 is NetworkResult.Error -> {
                     progressBar.visibility = View.GONE
-                    Log.i("TAG", "fetchData: ${response.message.toString()}")
                 }
                 is NetworkResult.Loading -> {
                     progressBar.visibility = View.VISIBLE
                 }
             }
         }
+    }
+
+    private fun openMovieDetail(movieId: Int) {
+        val direction = HomeFragmentDirections.openMovieDetails(movieId)
+        NavHostFragment.findNavController(this).navigate(direction)
     }
 
 }

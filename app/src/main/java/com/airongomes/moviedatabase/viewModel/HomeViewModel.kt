@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel: ViewModel() {
 
+    //TODO: Dependency injection
     private val service = Service.retrofitService
     private val remoteDataSource = RemoteDataSource(service)
     private val repository: Repository = Repository(remoteDataSource)

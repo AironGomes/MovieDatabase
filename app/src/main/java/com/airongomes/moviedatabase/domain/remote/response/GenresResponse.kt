@@ -8,6 +8,8 @@ data class GenresResponse(
     @SerializedName("name") val name: String
 )
 
+fun List<GenresResponse>.toModel() = map { it.toModel() }
+
 fun GenresResponse.toModel() = Genres(
     id = id,
     name = name

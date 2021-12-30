@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Movie Database</string>
+    <string name="release_date">Release date:</string>
+    <string name="image_url">https://image.tmdb.org/t/p/%s/%s</string>
+    <string name="error_loading_data">Unable to load data</string>
+    <string name="genre">Genre: %s</string>
+    <string name="release">Release: %s</string>
 </resources>

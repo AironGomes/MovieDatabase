@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.airongomes.moviedatabase.R
 import com.airongomes.moviedatabase.adapter.MovieListAdapter
 import com.airongomes.moviedatabase.domain.remote.NetworkResult
 import com.airongomes.moviedatabase.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel: HomeViewModel by viewModel()
     private val adapter by lazy { MovieListAdapter() }
 
     override fun onCreateView(

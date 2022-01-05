@@ -10,9 +10,9 @@ The initial phase is to create two screens. The home page has a list of movies i
 -	LiveData
 -	Glide
 -	Coroutine
+-	Koin
 ## Next steps:
 -	ScrollListener for paging
--	Koin
 -	View binding
 -	Unit tests
 -	Modularization

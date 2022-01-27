@@ -2,7 +2,6 @@ package com.airongomes.moviedatabase.repository
 
 import com.airongomes.moviedatabase.domain.model.Genres
 import com.airongomes.moviedatabase.domain.model.MovieDetail
-import com.airongomes.moviedatabase.domain.model.MovieList
 import com.airongomes.moviedatabase.domain.remote.BaseApiResponse
 import com.airongomes.moviedatabase.domain.remote.NetworkResult
 import com.airongomes.moviedatabase.domain.remote.response.toModel
@@ -28,18 +27,6 @@ class Repository(
         }.flowOn(dispatcher)
     }
 
-    suspend fun getMoviesInTheaters(): Flow<NetworkResult<MovieList>> {
-        return flow<NetworkResult<MovieList>> {
-            emit(
-                safeApiCall(
-                    apiCall = { remoteDataSource.getMoviesInTheaters() },
-                    resultMapped = { it.toModel() }
-                )
-            )
-
-        }.flowOn(dispatcher)
-    }
-
     suspend fun getGenres(): Flow<NetworkResult<List<Genres>>> {
         return flow<NetworkResult<List<Genres>>> {
             emit(
@@ -51,5 +38,7 @@ class Repository(
 
         }.flowOn(dispatcher)
     }
+
+    suspend fun getMoviesInTheaters(page: Int) = remoteDataSource.getMoviesInTheaters(page)
 
 }

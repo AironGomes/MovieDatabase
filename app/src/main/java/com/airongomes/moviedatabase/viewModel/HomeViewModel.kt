@@ -1,23 +1,20 @@
 package com.airongomes.moviedatabase.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.airongomes.moviedatabase.domain.model.MovieList
-import com.airongomes.moviedatabase.domain.remote.NetworkResult
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.airongomes.moviedatabase.domain.model.Movie
+import com.airongomes.moviedatabase.repository.MoviePagingSource
 import com.airongomes.moviedatabase.repository.Repository
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 
 class HomeViewModel(private val repository: Repository): ViewModel() {
 
-    private val _response: MutableLiveData<NetworkResult<MovieList>> = MutableLiveData()
-    val response: LiveData<NetworkResult<MovieList>> = _response
-
-    fun fetchMovieList() = viewModelScope.launch {
-        repository.getMoviesInTheaters().collect { movieList ->
-            _response.postValue(movieList)
-        }
-    }
-
+    fun fetchMoviesPage(): Flow<PagingData<Movie>> =
+        Pager(PagingConfig(pageSize = 20)) {
+            MoviePagingSource(repository)
+        }.flow.cachedIn(viewModelScope)
 }

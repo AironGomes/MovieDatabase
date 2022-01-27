@@ -2,6 +2,7 @@ package com.airongomes.moviedatabase.di
 
 import com.airongomes.moviedatabase.domain.remote.api.TMDbApi
 import com.airongomes.moviedatabase.domain.remote.instantiateApi
+import com.airongomes.moviedatabase.repository.MoviePagingSource
 import com.airongomes.moviedatabase.repository.RemoteDataSource
 import com.airongomes.moviedatabase.repository.Repository
 import com.airongomes.moviedatabase.viewModel.DetailViewModel
@@ -13,6 +14,7 @@ val defaultModule = module {
     single { instantiateApi(TMDbApi::class.java) }
     single { RemoteDataSource(get()) }
     single { Repository(get()) }
+    single { MoviePagingSource(get()) }
 
     viewModel { DetailViewModel(get()) }
     viewModel { HomeViewModel(get()) }

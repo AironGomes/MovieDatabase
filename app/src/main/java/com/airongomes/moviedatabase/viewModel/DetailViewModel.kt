@@ -14,7 +14,6 @@ class DetailViewModel(private val repository: Repository): ViewModel() {
     private val _response: MutableLiveData<NetworkResult<MovieDetail>> = MutableLiveData()
     val response: LiveData<NetworkResult<MovieDetail>> = _response
 
-
     fun fetchMovieDetail(movieId: Int) = viewModelScope.launch {
         repository.getMovie(movieId).collect { movie ->
             _response.postValue(movie)

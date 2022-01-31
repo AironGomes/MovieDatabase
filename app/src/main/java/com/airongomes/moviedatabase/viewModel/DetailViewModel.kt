@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.airongomes.moviedatabase.domain.model.MovieDetail
 import com.airongomes.moviedatabase.domain.remote.NetworkResult
-import com.airongomes.moviedatabase.repository.Repository
+import com.airongomes.moviedatabase.domain.repository.Repository
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val repository: Repository): ViewModel() {

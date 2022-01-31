@@ -1,4 +1,4 @@
-package com.airongomes.moviedatabase.repository
+package com.airongomes.moviedatabase.domain.repository
 
 import com.airongomes.moviedatabase.domain.remote.api.TMDbApi
 

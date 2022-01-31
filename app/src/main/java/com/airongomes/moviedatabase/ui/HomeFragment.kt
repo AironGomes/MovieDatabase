@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.LoadState
 import com.airongomes.moviedatabase.R
 import com.airongomes.moviedatabase.adapter.MovieAdapter
+import com.airongomes.moviedatabase.adapter.MovieLoadStateAdapter
 import com.airongomes.moviedatabase.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.flow.collectLatest
@@ -37,42 +38,36 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
-        movieAdapter.apply {
-            onClick = { openMovieDetail(it) }
-            setLoadListener(this)
-        }
-
-        movieList.apply {
-            adapter = movieAdapter
-            setHasFixedSize(true)
-        }
+        setupAdapter()
         fetchData()
-
     }
 
-    //TODO: CHANGE LOCAL?
-    private fun setLoadListener(adapter: MovieAdapter) {
-        adapter.addLoadStateListener { loadState ->
+    private fun setupAdapter() {
+        rvMovieList.apply {
+            adapter = movieAdapter.withLoadStateHeaderAndFooter(
+                header = MovieLoadStateAdapter { movieAdapter.retry() },
+                footer = MovieLoadStateAdapter { movieAdapter.retry() },
+            )
+            setHasFixedSize(true)
+        }
 
-            if (loadState.refresh is LoadState.Loading ||
-                loadState.append is LoadState.Loading)
-                    progressBar.visibility = View.VISIBLE
-            else {
-                progressBar.visibility = View.GONE
+        movieAdapter.onClick = { openMovieDetail(it) }
 
-                // If we have an error, show a toast
-                val errorState = when {
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.prepend is LoadState.Error ->  loadState.prepend as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
-                errorState?.let {
-                    Toast.makeText(requireContext(), R.string.error_loading_data, Toast.LENGTH_LONG).show()
-                }
+        btRetry.setOnClickListener { movieAdapter.retry() }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            movieAdapter.loadStateFlow.collect { loadState ->
+
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && movieAdapter.itemCount == 0
+
+                rvMovieList.isVisible = !isListEmpty
+                include_empty_list.isVisible = isListEmpty
+                homeProgressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                btRetry.isVisible = loadState.source.refresh is LoadState.Error
             }
         }
+
     }
 
     private fun fetchData() {

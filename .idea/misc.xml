@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/drawable/ic_image.xml" value="0.1925" />
+        <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/drawable/ic_sad.xml" value="0.2005" />
         <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/activity_main.xml" value="0.23802083333333332" />
         <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/fragment_detail.xml" value="0.264" />
         <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/fragment_home.xml" value="0.264" />
-        <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/item_movie.xml" value="0.4" />
+        <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/include_empty_list.xml" value="0.264" />
+        <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/item_load_state_footer.xml" value="0.264" />
+        <entry key="..\:/Praticas_Android/Meus_Projetos/Portfolio/MovieDatabase/app/src/main/res/layout/item_movie.xml" value="0.264" />
       </map>
     </option>
   </component>

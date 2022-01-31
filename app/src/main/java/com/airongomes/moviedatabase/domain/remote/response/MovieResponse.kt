@@ -6,30 +6,30 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieListResponse(
     @SerializedName("page") val page: Int,
-    @SerializedName("results") val results: List<MovieResponse>,
+    @SerializedName("results") val results: List<MovieResponse>?,
     @SerializedName("total_pages") val totalPages: Int
 )
 
 data class MovieResponse(
-    @SerializedName("id") val id: Int,
-    @SerializedName("title") val title: String,
-    @SerializedName("poster_path") val posterPath: String,
-    @SerializedName("genre_ids") val genreIds: List<Int>,
-    @SerializedName("release_date") val releaseDate: String
+    @SerializedName("id") val id: Int?,
+    @SerializedName("title") val title: String?,
+    @SerializedName("poster_path") val posterPath: String?,
+    @SerializedName("genre_ids") val genreIds: List<Int>?,
+    @SerializedName("release_date") val releaseDate: String?
 )
 
 fun MovieListResponse.toModel() = MovieList(
     page = page,
-    results = results.toModel(),
+    results = results.orEmpty().toModel(),
     totalPages = totalPages
 )
 
 fun List<MovieResponse>.toModel() = map { it.toModel() }
 
 fun MovieResponse.toModel() = Movie(
-    id = id,
-    title = title,
-    posterPath = posterPath,
-    genreIds = genreIds,
-    releaseDate = releaseDate
+    id = id ?: 0,
+    title = title.orEmpty(),
+    posterPath = posterPath.orEmpty(),
+    genreIds = genreIds.orEmpty(),
+    releaseDate = releaseDate.orEmpty()
 )

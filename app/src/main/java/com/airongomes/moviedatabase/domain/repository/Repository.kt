@@ -1,4 +1,4 @@
-package com.airongomes.moviedatabase.repository
+package com.airongomes.moviedatabase.domain.repository
 
 import com.airongomes.moviedatabase.domain.model.Genres
 import com.airongomes.moviedatabase.domain.model.MovieDetail
@@ -39,6 +39,11 @@ class Repository(
         }.flowOn(dispatcher)
     }
 
-    suspend fun getMoviesInTheaters(page: Int) = remoteDataSource.getMoviesInTheaters(page)
+    suspend fun getMoviesInTheaters(page: Int) =
+        safeApiCall(
+            apiCall = { remoteDataSource.getMoviesInTheaters(page) },
+            resultMapped = { it.toModel() }
+        )
+
 
 }

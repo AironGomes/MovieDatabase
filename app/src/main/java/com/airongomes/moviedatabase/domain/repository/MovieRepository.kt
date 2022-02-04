@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class Repository(
+class MovieRepository(
     private val remoteDataSource: RemoteDataSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BaseApiResponse() {

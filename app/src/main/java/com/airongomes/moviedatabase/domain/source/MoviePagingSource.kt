@@ -4,11 +4,11 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.airongomes.moviedatabase.domain.model.Movie
 import com.airongomes.moviedatabase.domain.remote.NetworkResult
-import com.airongomes.moviedatabase.domain.repository.Repository
+import com.airongomes.moviedatabase.domain.repository.MovieRepository
 import java.lang.Exception
 
 class MoviePagingSource(
-    private val repository: Repository
+    private val repository: MovieRepository
 ): PagingSource<Int, Movie>() {
 
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
@@ -41,7 +41,6 @@ class MoviePagingSource(
                 )
             }
         }
-
         return LoadResult.Error(Exception("Unable to load data"))
     }
 

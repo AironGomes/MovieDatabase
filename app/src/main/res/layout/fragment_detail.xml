@@ -24,8 +24,8 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="36sp"
+            android:layout_margin="@dimen/dimen_default"
+            android:textSize="@dimen/font_size_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivMovie"
@@ -35,9 +35,9 @@
             android:id="@+id/tvGenre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/dimen_default"
             android:singleLine="true"
-            android:textSize="20sp"
+            android:textSize="@dimen/font_size_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             tools:text="Action" />
@@ -46,23 +46,23 @@
             android:id="@+id/tvReleaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="14sp"
+            android:layout_marginStart="@dimen/dimen_default"
+            android:textSize="@dimen/font_size_small"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGenre"
+            app:layout_constraintTop_toBottomOf="@id/tvGenre"
             tools:text="Release: 25/12/2021" />
 
         <TextView
             android:id="@+id/tvOverview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/dimen_default"
             android:ellipsize="end"
-            android:textSize="16sp"
+            android:textSize="@dimen/font_size_default"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate"
+            app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
             tools:text="Movie overview" />
 
 

@@ -7,16 +7,15 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_sad" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:text="@string/empty_list"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold" />
 
 </LinearLayout>

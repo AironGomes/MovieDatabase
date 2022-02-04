@@ -15,6 +15,7 @@ import com.airongomes.moviedatabase.R
 import com.airongomes.moviedatabase.adapter.MovieAdapter
 import com.airongomes.moviedatabase.adapter.MovieLoadStateAdapter
 import com.airongomes.moviedatabase.viewModel.HomeViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,17 +45,16 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapter() {
         rvMovieList.apply {
-            adapter = movieAdapter.withLoadStateHeaderAndFooter(
-                header = MovieLoadStateAdapter { movieAdapter.retry() },
-                footer = MovieLoadStateAdapter { movieAdapter.retry() },
+            adapter = movieAdapter.withLoadStateFooter(
+                footer = MovieLoadStateAdapter { movieAdapter.retry() }
             )
             setHasFixedSize(true)
         }
-
         movieAdapter.onClick = { openMovieDetail(it) }
+        setupLoadState()
+    }
 
-        btRetry.setOnClickListener { movieAdapter.retry() }
-
+    private fun setupLoadState() {
         viewLifecycleOwner.lifecycleScope.launch {
             movieAdapter.loadStateFlow.collect { loadState ->
 
@@ -64,16 +64,26 @@ class HomeFragment : Fragment() {
                 rvMovieList.isVisible = !isListEmpty
                 include_empty_list.isVisible = isListEmpty
                 homeProgressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                btRetry.isVisible = loadState.source.refresh is LoadState.Error
+
+                val hasError = loadState.source.refresh is LoadState.Error
+                if (hasError) {
+                    Snackbar
+                        .make(
+                            requireView(),
+                            R.string.error_loading_data,
+                            Snackbar.LENGTH_INDEFINITE
+                        )
+                        .setAction(R.string.retry) { movieAdapter.retry() }
+                        .show()
+                }
             }
         }
-
     }
 
     private fun fetchData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.fetchMoviesPage().collectLatest {
+                viewModel.moviePagingFlow.collectLatest {
                     movieAdapter.submitData(it)
                 }
             }

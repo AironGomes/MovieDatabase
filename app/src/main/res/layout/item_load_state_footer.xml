@@ -1,46 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="4dp">
+    android:orientation="horizontal"
+    android:layout_marginHorizontal="@dimen/dimen_medium"
+    android:layout_marginVertical="@dimen/dimen_default">
 
     <TextView
         android:id="@+id/tvErrorMessage"
         android:layout_width="0dp"
+        android:layout_marginEnd="@dimen/dimen_default"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@color/design_default_color_error"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btRetry"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Error message" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:text="Unable to load data" />
 
     <Button
         android:id="@+id/btRetry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/retry"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/retry" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="gone" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

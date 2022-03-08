@@ -3,22 +3,17 @@ package com.airongomes.moviedatabase.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.airongomes.moviedatabase.R
 import com.airongomes.moviedatabase.domain.model.Movie
 import com.airongomes.moviedatabase.extensions.loadImage
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.ViewHolder>(MovieComparator()) {
 
-    var items = listOf<Movie>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    var onClick: ((imageId: Int) -> Unit)? = null
-
+    var onClick: ((movieId: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -28,11 +23,9 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        holder.bind(item)
+        val item = getItem(position)
+        item?.let { holder.bind(it) }
     }
-
-    override fun getItemCount() = items.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -46,6 +39,17 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
                 tvGenre.visibility = View.GONE//TODO: Get genre list from api
             }
         }
+    }
+
+}
+
+class MovieComparator: DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
     }
 
 }

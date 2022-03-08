@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.airongomes.moviedatabase.R
@@ -12,6 +11,7 @@ import com.airongomes.moviedatabase.domain.model.MovieDetail
 import com.airongomes.moviedatabase.domain.remote.NetworkResult
 import com.airongomes.moviedatabase.extensions.loadImage
 import com.airongomes.moviedatabase.viewModel.DetailViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,21 +44,25 @@ class DetailFragment : Fragment() {
     private fun handleObserver() {
         viewModel.response.observe(viewLifecycleOwner) { response ->
             when (response) {
+                is NetworkResult.Loading -> {
+                    progressBar.visibility = View.VISIBLE
+                }
                 is NetworkResult.Success -> {
                     progressBar.visibility = View.GONE
                     val movieDetail = response.data
                     showData(movieDetail)
                 }
-                is NetworkResult.Error -> {
+                else -> {
                     progressBar.visibility = View.GONE
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.error_loading_data),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                is NetworkResult.Loading -> {
-                    progressBar.visibility = View.VISIBLE
+
+                    Snackbar
+                        .make(
+                            requireView(),
+                            R.string.error_loading_data,
+                            Snackbar.LENGTH_INDEFINITE
+                        )
+                        .setAction(getString(R.string.retry)) { fetchData() }
+                        .show()
                 }
             }
         }

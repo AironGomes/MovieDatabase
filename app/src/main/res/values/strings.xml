@@ -5,4 +5,6 @@
     <string name="error_loading_data">Unable to load data</string>
     <string name="genre">Genre: %s</string>
     <string name="release">Release: %s</string>
+    <string name="retry">Retry</string>
+    <string name="empty_list">The list is empty</string>
 </resources>

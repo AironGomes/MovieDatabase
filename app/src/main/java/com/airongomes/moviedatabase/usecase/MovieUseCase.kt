@@ -6,10 +6,18 @@ import com.airongomes.moviedatabase.domain.model.Movie
 import com.airongomes.moviedatabase.domain.repository.MovieRepository
 import com.airongomes.moviedatabase.domain.source.MoviePagingSource
 
-class MovieUseCase(private val repository: MovieRepository) {
+interface MovieUseCase {
+    operator fun invoke(): Pager<Int, Movie>
+}
 
-    fun fetchMoviePage(): Pager<Int, Movie> =
-        Pager(PagingConfig(pageSize = MoviePagingSource.PAGE_SIZE)) {
+class MovieUseCaseImpl(private val repository: MovieRepository) : MovieUseCase {
+
+    override fun invoke(): Pager<Int, Movie> =
+        Pager(
+            PagingConfig(
+                pageSize = MoviePagingSource.PAGE_SIZE
+            )
+        ) {
             MoviePagingSource(repository)
         }
 }

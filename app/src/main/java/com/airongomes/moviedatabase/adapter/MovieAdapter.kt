@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.ViewHolder>(MovieComparator()) {
 
-    var onClick: ((imageId: Int) -> Unit)? = null
+    var onClick: ((movieId: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

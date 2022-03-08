@@ -11,5 +11,5 @@ import kotlinx.coroutines.flow.Flow
 class HomeViewModel(useCase: MovieUseCase) : ViewModel() {
 
     val moviePagingFlow: Flow<PagingData<Movie>> =
-        useCase.fetchMoviePage().flow.cachedIn(viewModelScope)
+        useCase().flow.cachedIn(viewModelScope)
 }
